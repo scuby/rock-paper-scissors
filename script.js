@@ -27,7 +27,22 @@ function computerPlay(){
 
 // single round (user vs computer)
 function playRound(playerSelection, computerSelection) {
-
+    let roundResult = `${playerSelection} vs ${computerSelection}`;
+    console.log(roundResult);
+    if (computerSelection == "nuclear bomb"){
+        console.log("Nuclear Bomb is not an option. Getting new computer play...");
+        computerSelection = computerPlay(); // get new play from computer
+        playRound(playerSelection, computerSelection);
+    } else if (computerSelection == "paper"){
+        roundResult = "You lose! Paper covers Rock!";
+        console.log(roundResult);
+    } else if (computerSelection == "scissors"){
+        roundResult = "You win! Rock smashes Scissors!";
+        console.log(roundResult);
+    } else {
+        roundResult = "It's a tie! Rock has enjoyed Rock's company for millions of years!";
+        console.log(roundResult);
+    }
 }
   
 const playerSelection = "rock";
