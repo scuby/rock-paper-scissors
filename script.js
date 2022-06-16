@@ -35,11 +35,12 @@ function playerPlay(){
             console.log(`${userInput} is not a valid selection. Please try again.`);
             userInput = playerPlay();
     }
+    console.log(`User chose: ${userInput}`);
     return userInput;
 }
 
 // single round (user vs computer)
-function playRound(playerSelection, computerSelection) {
+function playRound(playerSelection, computerSelection){
     let roundResult = `${playerSelection} vs ${computerSelection}`;
     console.log(roundResult);
     if (computerSelection == "nuclear bomb"){
@@ -49,32 +50,42 @@ function playRound(playerSelection, computerSelection) {
     } else if (computerSelection == playerSelection){
         roundResult = "It's a tie! Try again!";
         console.log(roundResult);
-        playerSelection = playerPlay();
-        computerSelection = computerPlay();
-        playRound(playerSelection, computerSelection);
+        playRound(playerPlay(), computerPlay());
     } else if (computerSelection == "rock" && playerSelection == "paper"){
         roundResult = "You win! Paper covers Rock!";
         console.log(roundResult);
+        gameRecord.wins++;
     } else if (computerSelection == "paper" && playerSelection == "scissors"){
         roundResult = "You win! Scissors cut Paper!";
         console.log(roundResult);
+        gameRecord.wins++;
     } else if (computerSelection == "scissors" && playerSelection == "rock"){
         roundResult = "You win! Rock smashes Scissors!";
         console.log(roundResult);
+        gameRecord.wins++;
     } else {
         roundResult = `You lose! ${computerSelection} beats ${playerSelection}`;
         console.log(roundResult);
+        gameRecord.losses++;
     }
 }
 
-
-const playerSelection = playerPlay();
-const computerSelection = computerPlay();
-console.log(playRound(playerSelection, computerSelection));
-
+const gameRecord = { wins: 0, losses: 0 };
+const playerSelection = "";
+const computerSelection = "";
+ 
 // five round game (user vs computer)
 function game(){
-    for ( let i = 0; i < 5; i++){
-        playRound(playerSelection, computerSelection);
+       
+    for (let i = 0; i < 5; i++) {
+        playRound(playerPlay(), computerPlay());
+        console.table(gameRecord);
     }
+
+    if(gameRecord.wins > gameRecord.losses){
+        console.log(`YOU WIN WITH A FINAL SCORE OF ${gameRecord.wins} to ${gameRecord.losses}. CONGRATULATIONS!`);
+    } else 
+        console.log(`YOU LOST WITH A FINAL SCORE OF ${gameRecord.wins} to ${gameRecord.losses}. GOOD LUCK NEXT TIME!`);
 }
+
+game();
