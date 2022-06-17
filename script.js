@@ -1,25 +1,27 @@
 // rock paper scissors
 
+// get random int to decide computer move
+function getRandomInt(){
+    let randomInt = Math.floor(Math.random() * 3);
+    // console.log(randomInt);
+    return randomInt;
+}
+
 // get random computer move
-function computerPlay(){
-    const moveCode = Math.floor(Math.random() * 10);
-    let computerMove = ''; 
-    switch(moveCode){
-        case 1:
-        case 2:
-        case 3: computerMove = "rock";
-            break;
-        case 4:
-        case 5:
-        case 6: computerMove = "paper";
-            break;
-        case 7:
-        case 8:
-        case 9: computerMove = "scissors";
-            break;
-        default: computerMove = "nuclear bomb"; // the extra special case where the game ends. forever.
-    }
-    console.log(`Computer chose: ${computerMove}`);   
+function computerPlay(moveCode){
+    let computerMove = "";
+        switch (moveCode) {
+            case 0:
+                computerMove = "rock";
+                break;
+            case 1:
+                computerMove = "paper";
+                break;
+            case 2:
+                computerMove = "scissors";
+                break;
+            default:
+        }
     return computerMove;
 }
 
@@ -35,7 +37,6 @@ function playerPlay(){
             console.log(`${userInput} is not a valid selection. Please try again.`);
             userInput = playerPlay();
     }
-    console.log(`User chose: ${userInput}`);
     return userInput;
 }
 
@@ -43,14 +44,10 @@ function playerPlay(){
 function playRound(playerSelection, computerSelection){
     let roundResult = `${playerSelection} vs ${computerSelection}`;
     console.log(roundResult);
-    if (computerSelection == "nuclear bomb"){
-        console.log("Nuclear Bomb is not an option. Getting new computer play...");
-        computerSelection = computerPlay();
-        playRound(playerSelection, computerSelection);
-    } else if (computerSelection == playerSelection){
+    if (computerSelection == playerSelection){
         roundResult = "It's a tie! Try again!";
         console.log(roundResult);
-        playRound(playerPlay(), computerPlay());
+        playRound(playerPlay(), computerPlay(getRandomInt()));
     } else if (computerSelection == "rock" && playerSelection == "paper"){
         roundResult = "You win! Paper covers Rock!";
         console.log(roundResult);
@@ -70,15 +67,15 @@ function playRound(playerSelection, computerSelection){
     }
 }
 
+// initialize live score array and user and computer selection variables
 const gameRecord = { wins: 0, losses: 0 };
-const playerSelection = "";
-const computerSelection = "";
+let playerSelection = "";
+let computerSelection = "";
  
 // five round game (user vs computer)
 function game(){
-       
     for (let i = 0; i < 5; i++) {
-        playRound(playerPlay(), computerPlay());
+        playRound(playerPlay(), computerPlay(getRandomInt()));
         console.table(gameRecord);
     }
 
@@ -88,4 +85,5 @@ function game(){
         console.log(`YOU LOST WITH A FINAL SCORE OF ${gameRecord.wins} to ${gameRecord.losses}. GOOD LUCK NEXT TIME!`);
 }
 
+// play a 5-round game of rock/paper/scissors
 game();
