@@ -1,0 +1,82 @@
+body {
+    font-family: 'Arial Narrow Bold', sans-serif;
+    height: 95vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    /* justify-content: center; */
+    justify-items: space-between;
+    /* background design via https://projects.verou.me/css3patterns/#argyle */
+        background-color: #6d695c;
+        background-image:
+            repeating-linear-gradient(120deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .1) 1px, transparent 1px, transparent 60px),
+            repeating-linear-gradient(60deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .1) 1px, transparent 1px, transparent 60px),
+            linear-gradient(60deg, rgba(0, 0, 0, .1) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, .1) 75%, rgba(0, 0, 0, .1)),
+            linear-gradient(120deg, rgba(0, 0, 0, .1) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, .1) 75%, rgba(0, 0, 0, .1));
+        background-size: 70px 120px;
+    color: #2b2924;
+}
+
+#buttonArea > span {
+    width: 750px;
+    display: flex;
+    justify-items: center;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1;
+}
+
+.btn {
+    align-items: center;
+    align-content: center;
+    gap: 10px;
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(to bottom, rgba(255,255,255,.4), rgba(255,255,255,.1));
+}
+
+.btn:hover {
+    background: linear-gradient(to bottom, rgba(255,255,255,.7), rgba(255,255,255,.4));
+}
+
+.shoot, #welcomeMessage {
+    margin-top: 0;
+    margin-bottom: 20px;
+    visibility: hidden;
+}
+
+#score {
+    display: flex;
+    justify-items: center;
+    justify-content: center;
+    width: 750px;
+    flex: 1 1 100%;
+    background: linear-gradient(to bottom, rgba(56, 128, 56, 0.25), rgba(56,128,56,0));
+}
+
+.scoreDisplay {
+    font-weight: 900;
+    font-size: 64px;
+}
+
+#table {
+    width: 700px;
+    display: flex;
+    flex: 1 0 100%;
+    border: 2px solid rgb(45, 56, 67);
+    justify-content: center;
+}
+
+.avatar {
+    width: 30px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 20%;
+    align-items: center;
+}
+
+.footer {
+    margin: 20px 0 10px 0;
+}

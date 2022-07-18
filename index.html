@@ -5,9 +5,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock || Paper || Scissors</title>
-    <script src="./script.js"></script>
+    <script src="./script.js" defer></script>
+    <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-    
+    <div id="title"><h1>Rock, Paper, Scissors</h1></div>
+    <div id="buttonArea">
+        <span id="button-span">
+            <button id="rock" class="btn">ROCK</button>
+            or
+            <button id="paper" class="btn">PAPER</button>
+            or
+            <button id="scissors" class="btn">SCISSORS</button>
+        </span>
+    </div>
+    <div class="shoot">SHOOT!</div>
+    <div id="score">
+        <span id="user" class="avatar">
+            USER
+            <span id="userScore" class="scoreDisplay">0</span>
+        </span>
+        <span id="table">
+            <p>GAME RECORD</p>
+        </span>
+        <span id="computer" class="avatar">
+            COMPUTER
+            <span id="computerScore" class="scoreDisplay">0</span>
+        </span>
+    </div>
+    <div id="footer" class="footer">
+        <span class="footer">&copy; 2022 ### CT7070</span>
+    </div>
 </body>
 </html>
