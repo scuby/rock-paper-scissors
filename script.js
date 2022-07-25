@@ -6,21 +6,15 @@ let playerScore = document.getElementById("userScore");
 let computerScore = document.getElementById("computerScore");
 let roundMatchup = "";
 let roundResult = "";
-let roundCounter = 1;
+let roundCounter = 0;
 let playerSelection = "";
 let computerSelection = "";
  
-// get random int to decide computer move
-function getRandomInt(){
-    let randomInt = Math.floor(Math.random() * 3);
-    // console.log(randomInt);
-    return randomInt;
-}
-
 // get random computer move
-function computerPlay(moveCode){
+function computerPlay(){
     let computerMove = "";
-        switch (moveCode) {
+    let randomInt = Math.floor(Math.random() * 3);
+        switch (randomInt) {
             case 0:
                 computerMove = "rock";
                 break;
@@ -37,92 +31,96 @@ function computerPlay(moveCode){
 
 // get player name from user
 function getPlayerName(){
+    let printPlayerName = document.getElementById("user");
     let playerName = prompt("What's your name?");
-    return playerName;
-}
-let printPlayerName = document.getElementById("user");
-printPlayerName.firstChild.nodeValue = getPlayerName();
-
-const buttonRock = document.getElementById("rock");
-buttonRock.addEventListener('click', function(){
-    playerSelection = "rock";
-    game();
-});
-const buttonPaper = document.getElementById("paper");
-buttonPaper.addEventListener('click', function(){
-    playerSelection = "paper";
-    game();
-});
-const buttonScissors = document.getElementById("scissors");
-buttonScissors.addEventListener('click', function(){
-    playerSelection = "scissors";
-    game();
-});
-
-function createNewRoundEntry(e){
-    const roundRecordElement = document.createElement("p");
-    const roundRecordEntry = document.createTextNode(e);
-    roundRecordElement.appendChild(roundRecordEntry);
-    document.getElementById("gameRecord").appendChild(roundRecordElement);
-
+    printPlayerName.firstChild.nodeValue = playerName;
 }
 
-function createNewRecordEntry(roundResult){
-    const roundRecordElement = document.createElement("div");
-    const roundRecordEntry = document.createTextNode(roundResult);
-    roundRecordElement.appendChild(roundRecordEntry);
-    document.getElementById("gameRecord").appendChild(roundRecordElement);
-}
+// call gameOn() when player clicks one of the move option buttons
+const buttonPlays = document.querySelector('#button-span')
+const buttons = buttonPlays.querySelectorAll('.btn');
+buttons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        playerSelection = e.target.id;
+        gameOn();
+    });
+});
 
-// single round (user vs computer)
-function playRound(playerSelection, computerSelection){
+// const playerLog = document.querySelector('#left');
+// const computerLog = document.querySelector('#right');
+// const resultLog = document.querySelector('#middle');
+
+// one round game print result (user vs computer)
+function gameOn(){
+    roundCounter++;        
+    computerSelection = computerPlay();
     roundMatchup = `ROUND ${roundCounter}: ${playerSelection} vs ${computerSelection}`;
-    createNewRoundEntry(roundMatchup);
+    // console.log(roundMatchup);
+    const resultTable = document.querySelector('#middle');
+    const addRoundMatchup = document.createElement('div');
+    const addRoundResult = document.createElement('div');
+    addRoundResult.classList.add('round' + roundCounter);
+    addRoundMatchup.classList.add('round' + roundCounter);
+    addRoundMatchup.textContent = roundMatchup;
+    resultTable.appendChild(addRoundMatchup);
+    console.log(roundMatchup);
+    console.log(document.querySelector('div > #middle'));
+
     if (computerSelection == playerSelection){
         roundResult = "It's a tie! Try again!";
-        createNewRecordEntry(roundResult);
-        // playRound(playerSelection, computerPlay(getRandomInt()));
+        addRoundResult.textContent = roundResult;
+        resultTable.appendChild(addRoundResult).scrollIntoView;
+        console.log(roundResult);
     } else if (computerSelection == "rock" && playerSelection == "paper"){
         roundResult = "You win! Paper covers Rock!";
-        // console.log(roundResult);
-        // createNewRecordEntry(roundResult);
-        createNewRecordEntry(roundResult);
+        addRoundResult.textContent = roundResult;
+        resultTable.appendChild(addRoundResult).scrollIntoView;
+        console.log(roundResult);
         gameRecord.wins++;
     } else if (computerSelection == "paper" && playerSelection == "scissors"){
         roundResult = "You win! Scissors cut Paper!";
-        // console.log(roundResult);
-        // createNewRecordEntry(roundResult);
-        createNewRecordEntry(roundResult);
+        addRoundResult.textContent = roundResult;
+        resultTable.appendChild(addRoundResult).scrollIntoView;
+        console.log(roundResult);
         gameRecord.wins++;
     } else if (computerSelection == "scissors" && playerSelection == "rock"){
         roundResult = "You win! Rock smashes Scissors!";
-        // console.log(roundResult);
-        // createNewRecordEntry(roundResult);
-        createNewRecordEntry(roundResult);
+        addRoundResult.textContent = roundResult;
+        resultTable.appendChild(addRoundResult).scrollIntoView;
+        console.log(roundResult);
         gameRecord.wins++;
     } else {
         roundResult = `You lose! ${computerSelection} beats ${playerSelection}`;
-        // console.log(roundResult);
-        // createNewRecordEntry(roundResult);
-        createNewRecordEntry(roundResult);
+        addRoundResult.textContent = roundResult;
+        resultTable.appendChild(addRoundResult).scrollIntoView;
+        console.log(roundResult);
         gameRecord.losses++;
     }
-    roundCounter++;
-}
-
-// one round game (user vs computer)
-function game(){
-    playRound(playerSelection, computerPlay(getRandomInt()));
-    // console.table(gameRecord);
     playerScore.firstChild.nodeValue = gameRecord.wins;
     computerScore.firstChild.nodeValue = gameRecord.losses;
+    // resultTable.appendChild(addRoundResult);
+    checkScore();
+}
 
-
+function checkScore(){
     if((gameRecord.wins > gameRecord.losses) && (gameRecord.wins == 5)){
         console.log(`YOU WIN WITH A FINAL SCORE OF ${gameRecord.wins} to ${gameRecord.losses}. CONGRATULATIONS!`);
-        gameRecord = { wins: 0, losses: 0 };
+        resetGame();
     } else if ((gameRecord.losses > gameRecord.wins) && (gameRecord.losses ==5)){
         console.log(`YOU LOST WITH A FINAL SCORE OF ${gameRecord.wins} to ${gameRecord.losses}. GOOD LUCK NEXT TIME!`);
-        gameRecord = { wins: 0, losses: 0 };
-    } else console.table(gameRecord);
+        resetGame();
+    } // else console.log(gameRecord);
 }
+
+function resetGame(){
+    gameRecord = { wins: 0, losses: 0 };
+    roundCounter = 0;
+    const resetTable = document.querySelector('#middle');
+    console.log(resetTable.firstChild);
+    const resetTableHeader = resetTable.firstChild;
+    document.querySelector('div > #middle').remove;
+    // console.clear();
+    // const buttonsDisabled = document.querySelector()
+}
+
+getPlayerName();
