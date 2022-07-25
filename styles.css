@@ -51,21 +51,34 @@ body {
     justify-items: center;
     justify-content: center;
     width: 750px;
-    flex: 1 1 100%;
+    flex: 0 0 100%;
+    margin: 10px;
     background: linear-gradient(to bottom, rgba(56, 128, 56, 0.25), rgba(56,128,56,0));
 }
 
 .scoreDisplay {
-    font-weight: 900;
+    font-weight: bolder;
     font-size: 64px;
 }
 
 #table {
     width: 700px;
+    height: 450px;
     display: flex;
-    flex: 1 0 100%;
+    justify-content: space-around;
+    flex: 0 0 100%;
     border: 2px solid rgb(45, 56, 67);
-    justify-content: center;
+    text-align: center;
+}
+
+#table > div {
+    margin-top: 10px;
+    font-size: 16px;
+    overflow: auto;
+}
+
+#middle::first-line {
+    font-weight: bold;
 }
 
 .avatar {
