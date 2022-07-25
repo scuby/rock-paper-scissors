@@ -80,31 +80,31 @@ function playRound(playerSelection, computerSelection){
     createNewRoundEntry(roundMatchup);
     if (computerSelection == playerSelection){
         roundResult = "It's a tie! Try again!";
-        console.log(createNewRecordEntry(roundResult));
+        createNewRecordEntry(roundResult);
         // playRound(playerSelection, computerPlay(getRandomInt()));
     } else if (computerSelection == "rock" && playerSelection == "paper"){
         roundResult = "You win! Paper covers Rock!";
         // console.log(roundResult);
         // createNewRecordEntry(roundResult);
-        console.log(createNewRecordEntry(roundResult));
+        createNewRecordEntry(roundResult);
         gameRecord.wins++;
     } else if (computerSelection == "paper" && playerSelection == "scissors"){
         roundResult = "You win! Scissors cut Paper!";
         // console.log(roundResult);
         // createNewRecordEntry(roundResult);
-        console.log(createNewRecordEntry(roundResult));
+        createNewRecordEntry(roundResult);
         gameRecord.wins++;
     } else if (computerSelection == "scissors" && playerSelection == "rock"){
         roundResult = "You win! Rock smashes Scissors!";
         // console.log(roundResult);
         // createNewRecordEntry(roundResult);
-        console.log(createNewRecordEntry(roundResult));
+        createNewRecordEntry(roundResult);
         gameRecord.wins++;
     } else {
         roundResult = `You lose! ${computerSelection} beats ${playerSelection}`;
         // console.log(roundResult);
         // createNewRecordEntry(roundResult);
-        console.log(createNewRecordEntry(roundResult));
+        createNewRecordEntry(roundResult);
         gameRecord.losses++;
     }
     roundCounter++;
