@@ -8,14 +8,15 @@ body {
     /* justify-content: center; */
     justify-items: space-between;
     /* background design via https://projects.verou.me/css3patterns/#argyle */
-        background-color: #6d695c;
+        /* background-color: #6d695c;
         background-image:
             repeating-linear-gradient(120deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .1) 1px, transparent 1px, transparent 60px),
             repeating-linear-gradient(60deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .1) 1px, transparent 1px, transparent 60px),
             linear-gradient(60deg, rgba(0, 0, 0, .1) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, .1) 75%, rgba(0, 0, 0, .1)),
             linear-gradient(120deg, rgba(0, 0, 0, .1) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, .1) 75%, rgba(0, 0, 0, .1));
-        background-size: 70px 120px;
+        background-size: 70px 120px; */
     color: #2b2924;
+    background-color: #dfd5bce1;
 }
 
 #buttonArea > span {
@@ -33,6 +34,7 @@ body {
     gap: 10px;
     width: 200px;
     height: 200px;
+    font-size: 20px;
     background: linear-gradient(to bottom, rgba(255,255,255,.4), rgba(255,255,255,.1));
 }
 
@@ -40,20 +42,31 @@ body {
     background: linear-gradient(to bottom, rgba(255,255,255,.7), rgba(255,255,255,.4));
 }
 
-.shoot, #welcomeMessage {
-    margin-top: 0;
-    margin-bottom: 20px;
-    visibility: hidden;
+.shoot {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    height: 60px;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    margin: 30px;
+    /* border: 1px solid blue; */
+    font-size: 50px;
+    /* border: 4px dotted rgba(128, 0, 128, 0.473); */
+    /* background-color: rgba(0, 0, 0, 0.671); */
+    /* background: linear-gradient(#f69c3c6c, #3f87a667); */
+    /* color: white; */
+    /* visibility: hidden; */
 }
 
 #score {
     display: flex;
     justify-items: center;
     justify-content: center;
-    width: 750px;
-    flex: 0 0 100%;
-    margin: 10px;
-    background: linear-gradient(to bottom, rgba(56, 128, 56, 0.25), rgba(56,128,56,0));
+    /* width: 750px; */
+    /* height: 400px; */
+    flex: 0 1 100%;
 }
 
 .scoreDisplay {
@@ -62,22 +75,28 @@ body {
 }
 
 #table {
-    width: 700px;
-    height: 450px;
+    width: 400px;
+    /* height: 400px; */
     display: flex;
     justify-content: space-around;
     flex: 0 0 100%;
+    margin: 10px 20px;
     border: 2px solid rgb(45, 56, 67);
     text-align: center;
+    background: linear-gradient(to bottom, rgba(56, 128, 56, 0.25), rgba(56,128,56,0));
 }
 
 #table > div {
-    margin-top: 10px;
+    /* margin-top: 10px; */
+    margin: 10px;
     font-size: 16px;
-    overflow: auto;
 }
 
-#middle::first-line {
+#middle {
+    width: 50%;
+}
+
+#table > *::first-line {
     font-weight: bold;
 }
 
@@ -92,4 +111,61 @@ body {
 
 .footer {
     margin: 20px 0 10px 0;
+    visibility: hidden;
 }
+
+#left, #right {
+    text-align: center;
+    width: 20%;
+}
+
+.win {
+    color: rgb(0, 41, 0);
+    text-decoration: underline dotted;
+    /* background-color: rgba(172, 255, 47, 0.466); */
+}
+
+.loss {
+    text-decoration: line-through;
+    color: rgb(134, 0, 0);
+    /* background-color: rgba(221, 156, 156, 0.692); */
+}
+
+.tie {
+    color: gray;
+}
+
+.gameOverWon {
+    background: linear-gradient(to bottom, rgba(17, 173, 64, 0.459), rgba(218, 250, 185, 0.493));
+}
+
+.gameOverLost {
+    color:rgb(134, 0, 0);
+    background: linear-gradient(to bottom, rgba(255, 0, 0, 0.281), rgba(255, 192, 203, 0.664));
+}
+
+.gameOverToo {
+    font-size: 299%;
+    text-align: center;
+    color:rgba(15, 68, 15, 0.692);
+}
+
+[class^="gameOver"] {
+    animation-duration: 10s;
+    animation-name: fade;
+    animation-fill-mode: both;
+}
+
+@keyframes fade {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+}
+/* @keyframes fadein {
+    0% { opacity: 0; }
+    4% { opacity: 0.9; }
+    30% { opacity: 0.6; }
+    60% { opacity: 0.4; }
+    90% { opacity: 0.2; }
+    100% { opacity: 0; }
+} */
