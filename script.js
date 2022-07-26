@@ -42,58 +42,65 @@ const buttons = buttonPlays.querySelectorAll('.btn');
 buttons.forEach(btn => {
     btn.addEventListener('click', (e) => {
         playerSelection = e.target.id;
+        const wipeGame = document.querySelectorAll('[class^=gameOver]');
+        wipeGame.forEach((elem) => elem.parentNode.removeChild(elem));
         gameOn();
     });
 });
 
-// const playerLog = document.querySelector('#left');
-// const computerLog = document.querySelector('#right');
-// const resultLog = document.querySelector('#middle');
+const printResult = document.querySelector('.shoot');
+const playerLog = document.querySelector('#left');
+const computerLog = document.querySelector('#right');
+const resultTable = document.querySelector('#middle');
+
+const addRoundMatchup = document.createElement('span');
+const addRoundInfo = document.createElement('p');   
 
 // one round game print result (user vs computer)
 function gameOn(){
     roundCounter++;        
-    computerSelection = computerPlay();
-    roundMatchup = `ROUND ${roundCounter}: ${playerSelection} vs ${computerSelection}`;
-    // console.log(roundMatchup);
-    const resultTable = document.querySelector('#middle');
-    const addRoundMatchup = document.createElement('div');
-    const addRoundResult = document.createElement('div');
+    const addRoundResult = document.createElement('p');
     addRoundResult.classList.add('round' + roundCounter);
-    addRoundMatchup.classList.add('round' + roundCounter);
-    addRoundMatchup.textContent = roundMatchup;
-    resultTable.appendChild(addRoundMatchup);
-    console.log(roundMatchup);
-    console.log(document.querySelector('div > #middle'));
+
+    const addPlayerLog = document.createElement('p');   
+    addPlayerLog.classList.add('round' + roundCounter);
+    addPlayerLog.textContent = playerSelection;
+    playerLog.appendChild(addPlayerLog);
+
+    const addComputerLog = document.createElement('p');
+    addComputerLog.classList.add('round' + roundCounter);
+    computerSelection = computerPlay();
+    addComputerLog.textContent = computerSelection;
+    computerLog.appendChild(addComputerLog);
+
+    roundMatchup = `ROUND ${roundCounter}: ${playerSelection} vs ${computerSelection}`;
+    addRoundInfo.classList.add('round' + roundCounter);
+    addRoundInfo.textContent = roundMatchup;
+    printResult.appendChild(addRoundInfo);
+    // console.log(roundMatchup);
+    // console.log(document.querySelector('div > #middle'));
 
     if (computerSelection == playerSelection){
-        roundResult = "It's a tie! Try again!";
+        roundResult = "TIE";
         addRoundResult.textContent = roundResult;
-        resultTable.appendChild(addRoundResult).scrollIntoView;
-        console.log(roundResult);
-    } else if (computerSelection == "rock" && playerSelection == "paper"){
-        roundResult = "You win! Paper covers Rock!";
-        addRoundResult.textContent = roundResult;
-        resultTable.appendChild(addRoundResult).scrollIntoView;
-        console.log(roundResult);
-        gameRecord.wins++;
-    } else if (computerSelection == "paper" && playerSelection == "scissors"){
-        roundResult = "You win! Scissors cut Paper!";
-        addRoundResult.textContent = roundResult;
-        resultTable.appendChild(addRoundResult).scrollIntoView;
-        console.log(roundResult);
-        gameRecord.wins++;
-    } else if (computerSelection == "scissors" && playerSelection == "rock"){
-        roundResult = "You win! Rock smashes Scissors!";
-        addRoundResult.textContent = roundResult;
-        resultTable.appendChild(addRoundResult).scrollIntoView;
-        console.log(roundResult);
-        gameRecord.wins++;
+        addRoundResult.classList.add('tie');
+        resultTable.appendChild(addRoundResult);
+        // console.log(roundResult);
+    } else if ((computerSelection == "rock" && playerSelection == "paper") ||
+                (computerSelection == "paper" && playerSelection == "scissors") ||
+                (computerSelection == "scissors" && playerSelection == "rock")){
+                    roundResult = " WIN ";
+                    addRoundResult.textContent = roundResult;
+                    addRoundResult.classList.add('win');
+                    resultTable.appendChild(addRoundResult);
+                    // console.log(roundResult);
+                    gameRecord.wins++;
     } else {
-        roundResult = `You lose! ${computerSelection} beats ${playerSelection}`;
+        roundResult = " LOSS ";
         addRoundResult.textContent = roundResult;
-        resultTable.appendChild(addRoundResult).scrollIntoView;
-        console.log(roundResult);
+        addRoundResult.classList.add('loss');
+        resultTable.appendChild(addRoundResult);
+        // console.log(roundResult);
         gameRecord.losses++;
     }
     playerScore.firstChild.nodeValue = gameRecord.wins;
@@ -103,24 +110,40 @@ function gameOn(){
 }
 
 function checkScore(){
+    let gameResult = "CONGRATS, YOU WIN!";
     if((gameRecord.wins > gameRecord.losses) && (gameRecord.wins == 5)){
         console.log(`YOU WIN WITH A FINAL SCORE OF ${gameRecord.wins} to ${gameRecord.losses}. CONGRATULATIONS!`);
-        resetGame();
+        resetGame(gameResult);
     } else if ((gameRecord.losses > gameRecord.wins) && (gameRecord.losses ==5)){
         console.log(`YOU LOST WITH A FINAL SCORE OF ${gameRecord.wins} to ${gameRecord.losses}. GOOD LUCK NEXT TIME!`);
-        resetGame();
+        gameResult = "SORRY, YOU LOSE!";
+        resetGame(gameResult);
     } // else console.log(gameRecord);
 }
 
-function resetGame(){
+function resetGame(gameResult){
     gameRecord = { wins: 0, losses: 0 };
     roundCounter = 0;
-    const resetTable = document.querySelector('#middle');
-    console.log(resetTable.firstChild);
-    const resetTableHeader = resetTable.firstChild;
-    document.querySelector('div > #middle').remove;
-    // console.clear();
-    // const buttonsDisabled = document.querySelector()
+    
+    printResult.lastChild.remove('p');
+    
+    const gameOver = document.createElement('p');
+    if ( gameResult == "CONGRATS, YOU WIN!" ){
+        gameOver.classList.add('gameOverWon');
+    } else gameOver.classList.add('gameOverLost');
+    gameOver.textContent = "GAME OVER";
+    
+    const resetTable = document.querySelectorAll('[class^=round]');
+    resetTable.forEach((elem) => elem.parentNode.removeChild(elem));
+
+    const sayThis = document.createElement('p');
+    sayThis.classList.add('gameOverToo');
+    sayThis.textContent = gameResult;
+    
+    printResult.appendChild(gameOver);
+    resultTable.appendChild(sayThis);
+    
+    // const buttonsDisabled = document.querySelector();
 }
 
 getPlayerName();
